@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Models",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Web", "EmployeeManagement.Web\EmployeeManagement.Web.csproj", "{18A60DE2-EB22-4910-A7DE-5C985180424B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Api", "EmployeeManagement.Api\EmployeeManagement.Api.csproj", "{E67A89D4-0ED6-4566-B4FD-6F15EBD36C9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{18A60DE2-EB22-4910-A7DE-5C985180424B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18A60DE2-EB22-4910-A7DE-5C985180424B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18A60DE2-EB22-4910-A7DE-5C985180424B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E67A89D4-0ED6-4566-B4FD-6F15EBD36C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E67A89D4-0ED6-4566-B4FD-6F15EBD36C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E67A89D4-0ED6-4566-B4FD-6F15EBD36C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E67A89D4-0ED6-4566-B4FD-6F15EBD36C9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
