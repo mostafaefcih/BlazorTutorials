@@ -2,6 +2,7 @@
 
 <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
     <div class="card-header">
+        <input type="checkbox" checked="@IsSelected" @onchange="CheckBoxChanged"/>
         <h3>@Employee.FirstName  @Employee.LastName</h3>
     </div>
 
