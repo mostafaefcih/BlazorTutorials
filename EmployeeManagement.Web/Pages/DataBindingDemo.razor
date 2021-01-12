@@ -1,0 +1,29 @@
+﻿@page "/BindingDemo"
+
+@inherits DataBindingDemoBase
+<h3>DataBindingDemo</h3>
+
+ <div>
+     Name is :@Name
+ </div>
+<div>
+
+    Name is @(Name=="deshaa"?"Mahmoud":"mrm")
+</div>
+
+<div>
+text with change event    <input value="@Name" @onchange="@(e=> { Name = e.Value.ToString(); })"/>
+
+</div>
+<div>
+    text with bind event
+
+    <input @bind="Name" @bind:event="oninput"/>
+
+</div>
+<div @bind-style="@Color" @bind-style:event="onchange">
+    color test 
+
+    <input @bind="Color" />
+
+</div>
