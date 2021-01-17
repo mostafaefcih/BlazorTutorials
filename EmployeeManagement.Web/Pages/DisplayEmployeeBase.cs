@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models;
+using EmployeeManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,16 @@ namespace EmployeeManagement.Web.Pages
       public  EventCallback<bool> OnEmployeeSelection { get; set; }
        public async Task CheckBoxChanged(ChangeEventArgs e) {
             await OnEmployeeSelection.InvokeAsync((bool)e.Value);
+        }
+        [Inject]
+        IEmployeeService employeeService { get; set; }
+        [Parameter]
+        public EventCallback<int> onEmployeeDeleted { get; set; }
+        protected async Task Delete_Click()
+        {
+            await employeeService.DeleteEmployee(Employee.EmployeeId);
+            await onEmployeeDeleted.InvokeAsync(Employee.EmployeeId);
+
         }
     }
 }

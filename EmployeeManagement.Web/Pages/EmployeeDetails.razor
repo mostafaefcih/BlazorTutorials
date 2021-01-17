@@ -25,7 +25,7 @@ else {
             <button class="btn btn-primary" @onclick="@Button_Click">@ButtonText</button>
             <div class="card-footer text-center @CssClass">
                 <a href="/" class="btn btn-primary">Back</a>
-                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="@($"editemployee/{Employee.EmployeeId}")" class="btn btn-primary">Edit</a>
                 <a href="#" class="btn btn-danger">Delete</a>
             </div>
         </div>
