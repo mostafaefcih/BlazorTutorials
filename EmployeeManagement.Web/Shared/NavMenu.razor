@@ -7,18 +7,37 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/editemployee" 
-                     @onclick="HandleClick"
-                     Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Create
-            </NavLink>
-        </li>
+       <AuthorizeView>
+           <Authorized>
+               <li class="nav-item px-3">
+                   <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                       <span class="oi oi-home" aria-hidden="true"></span> Home
+                   </NavLink>
+               </li>
+               <li class="nav-item px-3">
+                   <NavLink class="nav-link" href="/editemployee"
+                            @onclick="HandleClick"
+                            Match="NavLinkMatch.All">
+                       <span class="oi oi-home" aria-hidden="true"></span> Create
+                   </NavLink>
+               </li>
+               <li class="nav-item px-3">
+                   <NavLink class="nav-link" href="/identity/account/logout"
+                            Match="NavLinkMatch.All">
+                       <span class="oi oi-power-standby" aria-hidden="true"></span>
+                       Log Out  
+                   </NavLink>
+               </li>
+           </Authorized>
+           <NotAuthorized>
+    <li class="nav-item px-3">
+        <NavLink class="nav-link" href="/identity/account/Login"
+                 Match="NavLinkMatch.All">
+            <span class="oi oi-lock-locked" aria-hidden="true"></span> Log In
+        </NavLink>
+    </li>
+</NotAuthorized>
+       </AuthorizeView>
 
     </ul>
 </div>

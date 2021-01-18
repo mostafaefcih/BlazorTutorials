@@ -1,6 +1,7 @@
 ﻿@page "/"
 @inherits EmployeeListBase
 
+@attribute [Authorize]
 <h3>Employee List</h3>
 
 @if (Employees == null)
