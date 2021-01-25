@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using EmployeeManagement.Models
 @inherits EmployeeListBase
 
 @attribute [Authorize]
@@ -11,15 +12,48 @@
 
 else
 {
+    <div>
+        <div class="form-group row">
+            <label for="gender2" class="col-sm-2 col-form-label">
+                Gender
+            </label>
+            <div class="col-sm-10">
+                <Select id="gender2" name="selectedGender"   @onchange="@SearchByGender" class="form-control">
+
+                    <option value="-1">select...</option>
+                    @foreach (var gender in Enum.GetValues(typeof(Gender)))
+                        {
+                        <option value="@gender">@gender</option>
+                        }
+                </Select>
+            </div>
+        </div>
+
+    </div>
     <input type="checkbox" @bind="ShowFooter" id="showFooter" />
     <label for="">Show Footer</label>
     <span>@SelectedEmployeesCount</span>
-    <div class="card-deck">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date Of Birth</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-        @foreach (var employee in Employees)
+        @foreach (var employee in SearchedEmployees)
         {
             <DisplayEmployee Employee="employee" ShowFooter="ShowFooter" OnEmployeeSelection="EmployeeSelectionChanged" onEmployeeDeleted="EmployeeDeleted"></DisplayEmployee>
         }
-    </div>
+        @if (SearchedEmployees.Count() == 0)
+        {
+            <div class="d-flex justify-content-center">
+                there is no data to be displayed
+            </div>
 
-}
+        }
+    </table>
+
+    }

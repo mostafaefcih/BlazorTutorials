@@ -1,0 +1,54 @@
+﻿@page "/jstest"
+
+<h3>JSTest</h3>
+
+@inject IJSRuntime jsRuntime
+<input type="button" class="btn btn-success" @onclick="ViewAlret" value="View Alret" />
+
+<br />
+
+<br />
+<input type="text" @bind="@Question" />
+<input type="button" class="btn btn-warning" @onclick="@AskQuestion" value="Ask Question" />
+<span id="answer"></span>
+<br />
+Please Focus
+
+<input type="button" class="btn btn-danger" @onclick="@Focus" value="Focus" />
+
+<input @ref="@inputToFocus" />
+
+<br />
+<br />
+
+cal c# from js <span id="randomNumber"></span>
+<input type="button" class="btn btn-danger" onclick="randomize(100)" value="js call c# randmoMethod" />
+
+@code {
+    ElementReference inputToFocus;
+    [JSInvokable]
+  public static Task<int> Randomize(int max)
+    {
+
+       return Task.FromResult(new Random().Next(max));
+    }
+
+    async Task Focus()
+    {
+        await jsRuntime.InvokeVoidAsync("SetElementFocus", inputToFocus);
+    }
+
+    string Question = "";
+    // call js from .net  code
+    async Task AskQuestion()
+    {
+        var resutl = await jsRuntime.InvokeAsync<string>("CreatePrompte", Question);
+        await jsRuntime.InvokeVoidAsync("setElementTextById", "answer", resutl);
+    }
+
+    async Task ViewAlret()
+    {
+        await jsRuntime.InvokeVoidAsync("CreateAlert");
+
+    }
+}
