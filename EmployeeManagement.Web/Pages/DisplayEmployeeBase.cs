@@ -1,6 +1,7 @@
 ﻿using EmployeeManagement.Models;
 using EmployeeManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,18 @@ namespace EmployeeManagement.Web.Pages
         }
         [Inject]
         IEmployeeService employeeService { get; set; }
+        [Inject]
+        public IJSRuntime js { get; set; }
         [Parameter]
         public EventCallback<int> onEmployeeDeleted { get; set; }
         protected async Task Delete_Click()
         {
+            if(await js.InvokeAsync<bool>("confirm",$"Do you want to delete {Employee.LastName} ?"))
+            {
+
             await employeeService.DeleteEmployee(Employee.EmployeeId);
             await onEmployeeDeleted.InvokeAsync(Employee.EmployeeId);
+            }
 
         }
     }
