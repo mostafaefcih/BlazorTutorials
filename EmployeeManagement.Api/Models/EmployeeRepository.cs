@@ -1,4 +1,6 @@
-﻿using EmployeeManagement.Models;
+﻿using EmployeeManagement.Api.Models.Filter;
+using EmployeeManagement.Api.Models.Wrappers;
+using EmployeeManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,16 @@ namespace EmployeeManagement.Api.Models
         public EmployeeRepository(AppDbContext appDbContext)
         {
             this.appDbContext = appDbContext;
+        }
+        public async Task<PagedResponse<List<Employee>>> GetAll(PaginationFilter filter) {
+          var result=  await appDbContext.Employees
+                   .Skip((filter.PageNumber - 1) * filter.PageSize)
+                   .Take(filter.PageSize)
+                   .ToListAsync();
+            var totalRecords = await appDbContext.Employees.CountAsync();
+            var pagedResponse = new PagedResponse<List<Employee>>(result, filter.PageNumber, filter.PageSize);
+            return pagedResponse;
+          
         }
         public async Task<IEnumerable<Employee>> Search(string name, Gender? gender)
         {

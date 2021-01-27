@@ -1,4 +1,6 @@
-﻿using EmployeeManagement.Api.Models;
+﻿using EmployeeManagement.Api.Helpers;
+using EmployeeManagement.Api.Models;
+using EmployeeManagement.Api.Models.Filter;
 using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +16,25 @@ namespace EmployeeManagement.Api.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeRepository employeeRepository;
+        private readonly IUriService uriService;
 
-        public EmployeesController(IEmployeeRepository employeeRepository)
+        public EmployeesController(IEmployeeRepository employeeRepository,
+
+            IUriService uriService)
         {
             this.employeeRepository = employeeRepository;
+            this.uriService = uriService;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
+        {
+            var route = Request.Path.Value;
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var pagedData = await employeeRepository.GetAll(validFilter);
+            var pagedReponse = PaginationHelper.CreatePagedReponse<Employee>(pagedData, validFilter, pagedData. totalRecords, uriService, route);
+            return Ok(pagedReponse);
+        }
+
         [HttpGet("{search}")]
         public async Task<ActionResult<IEnumerable<Employee>>> Search(string name, Gender? gender)
         {
