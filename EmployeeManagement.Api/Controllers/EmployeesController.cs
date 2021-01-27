@@ -25,13 +25,13 @@ namespace EmployeeManagement.Api.Controllers
             this.employeeRepository = employeeRepository;
             this.uriService = uriService;
         }
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
         {
             var route = Request.Path.Value;
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             var pagedData = await employeeRepository.GetAll(validFilter);
-            var pagedReponse = PaginationHelper.CreatePagedReponse<Employee>(pagedData, validFilter, pagedData. totalRecords, uriService, route);
+            var pagedReponse = PaginationHelper.CreatePagedReponse<Employee>(pagedData, validFilter, pagedData.TotalRecords, uriService, route);
             return Ok(pagedReponse);
         }
 

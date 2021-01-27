@@ -1,4 +1,6 @@
-﻿using EmployeeManagement.Models;
+﻿using EmployeeManagement.Api.Models.Filter;
+using EmployeeManagement.Api.Models.Wrappers;
+using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -32,14 +34,25 @@ namespace EmployeeManagement.Web.Services
         {
             return await httpClient.GetJsonAsync<Employee>($"api/employees/{id}");
         }
+        
+        public async Task<PagedResponse<List<Employee>>> GetAllEmployees(PaginationFilter filter) 
+        {
+            var url = $"api/Employees/getall?PageNumber={filter.PageNumber}&PageSize={filter.PageSize}";
+            var result = await httpClient.GetJsonAsync<PagedResponse<List<Employee>>>(url);
+            return result;
+        }
         public async Task<IEnumerable<Employee>> GetEmployees()
         {
-            return await httpClient.GetJsonAsync<Employee[]>("api/Employees");
+            var url = $"api/Employees";
+          var result=   await httpClient.GetJsonAsync<Employee[]>(url);
+            return result;
         }
 
         public async Task<Employee> UpdateEmployee(Employee updatedEmployee)
         {
             return await httpClient.PutJsonAsync<Employee>("api/Employees", updatedEmployee);
         }
+
+       
     }
 }

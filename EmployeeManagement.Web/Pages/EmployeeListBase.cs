@@ -1,4 +1,5 @@
-﻿using EmployeeManagement.Models;
+﻿using EmployeeManagement.Api.Models.Filter;
+using EmployeeManagement.Models;
 using EmployeeManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -19,7 +20,9 @@ namespace EmployeeManagement.Web.Pages
         protected int SelectedEmployeesCount { get; set; } = 0;
         protected override async Task OnInitializedAsync()
         {
-             Employees = (await EmployeeService.GetEmployees()).ToList();
+            var filter = new PaginationFilter() {PageNumber=10,PageSize=10 };
+             Employees = (await EmployeeService.GetAllEmployees(filter)).Data;
+             //Employees = (await EmployeeService.GetEmployees()).ToList();
             SearchedEmployees = Employees;
             //return base.OnInitializedAsync();
         }

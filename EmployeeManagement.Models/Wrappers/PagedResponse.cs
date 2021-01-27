@@ -7,9 +7,10 @@ namespace EmployeeManagement.Api.Models.Wrappers
 {
     public class PagedResponse<T>:Response<T>
     {
-        public PagedResponse(T data, int pageNumber, int pageSize)
+        public PagedResponse(T data,int TotalRecords, int pageNumber, int pageSize)
 
         {
+            this.TotalRecords = TotalRecords;
             this.PageNumber = pageNumber;
             this.PageSize = pageSize;
             this.Data = data;

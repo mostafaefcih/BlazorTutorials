@@ -23,7 +23,7 @@ namespace EmployeeManagement.Api.Models
                    .Take(filter.PageSize)
                    .ToListAsync();
             var totalRecords = await appDbContext.Employees.CountAsync();
-            var pagedResponse = new PagedResponse<List<Employee>>(result, filter.PageNumber, filter.PageSize);
+            var pagedResponse = new PagedResponse<List<Employee>>(result,totalRecords, filter.PageNumber, filter.PageSize);
             return pagedResponse;
           
         }
