@@ -2,7 +2,9 @@
 using EmployeeManagement.Api.Models.Filter;
 using EmployeeManagement.Api.Models.Wrappers;
 using EmployeeManagement.Models;
+using EmployeeManagement.Models.Filter;
 using EmployeeManagement.Models.Sort;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,22 +34,34 @@ namespace EmployeeManagement.Api.Models
             return pagedResponse;
 
         }
-        public async Task<IEnumerable<Employee>> Search(string name, Gender? gender)
+        //public async Task<IEnumerable<Employee>> Search(string name, Gender? gender)
+        public async Task<IEnumerable<Employee>> Search(EmployeeFilter filter)
         {
+            int gnd = (int)filter.Gender;
             IQueryable<Employee> query = appDbContext.Employees;
+            //var x = string.IsNullOrEmpty(filter.Name) ? DBNull.Value : filter.Name;
+            SqlParameter name = new SqlParameter("@Name", string.IsNullOrEmpty(filter.Name) ? (object)DBNull.Value : filter.Name); 
+            SqlParameter Email = new SqlParameter("@Email", string.IsNullOrEmpty(filter.Email) ? (object)DBNull.Value : filter.Email);
+            SqlParameter Gender = new SqlParameter("@Gender", (int)filter.Gender==-1 ? (object)DBNull.Value : filter.Gender);
+            SqlParameter DepartmentId = new SqlParameter("@DepartmentId", (int)filter.DepartmentId==-1 ? (object)DBNull.Value : filter.DepartmentId);
+           
+            var result = appDbContext.Employees.
+                FromSqlRaw<Employee>("spSearchEmployees @Name, @Email, @Gender ,@DepartmentId"
+                , name,Email ,Gender, DepartmentId).ToListAsync();    
+            return await result;
 
-            if (!string.IsNullOrEmpty(name))
-            {
-                query = query.Where(e => e.FirstName.Contains(name)
-                            || e.LastName.Contains(name));
-            }
+            //if (!string.IsNullOrEmpty(name))
+            //{
+            //    query = query.Where(e => e.FirstName.Contains(name)
+            //                || e.LastName.Contains(name));
+            //}
 
-            if (gender != null)
-            {
-                query = query.Where(e => e.Gender == gender);
-            }
+            //if (gender != null)
+            //{
+            //    query = query.Where(e => e.Gender == gender);
+            //}
 
-            return await query.ToListAsync();
+            //return await query.ToListAsync();
         }
         public async Task<IEnumerable<Employee>> GetEmployees()
         {

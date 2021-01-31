@@ -2,6 +2,7 @@
 using EmployeeManagement.Api.Models;
 using EmployeeManagement.Api.Models.Filter;
 using EmployeeManagement.Models;
+using EmployeeManagement.Models.Filter;
 using EmployeeManagement.Models.Sort;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,12 +37,12 @@ namespace EmployeeManagement.Api.Controllers
             return Ok(pagedReponse);
         }
 
-        [HttpGet("{search}")]
-        public async Task<ActionResult<IEnumerable<Employee>>> Search(string name, Gender? gender)
+        [HttpPost("{search}")]
+        public async Task<ActionResult<IEnumerable<Employee>>> Search(EmployeeFilter filter)
         {
             try
             {
-                var result = await employeeRepository.Search(name, gender);
+                var result = await employeeRepository.Search(filter);
 
                 if (result.Any())
                 {
@@ -50,7 +51,7 @@ namespace EmployeeManagement.Api.Controllers
 
                 return NotFound();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
@@ -63,7 +64,7 @@ namespace EmployeeManagement.Api.Controllers
             {
                 return Ok(await employeeRepository.GetEmployees());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
@@ -84,7 +85,7 @@ namespace EmployeeManagement.Api.Controllers
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
@@ -114,7 +115,7 @@ namespace EmployeeManagement.Api.Controllers
                 return CreatedAtAction(nameof(GetEmployee), new { id = createdEmployee.EmployeeId },
                     createdEmployee);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
@@ -137,7 +138,7 @@ namespace EmployeeManagement.Api.Controllers
 
                 return await employeeRepository.UpdateEmployee(employee);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error updating data");
@@ -158,7 +159,7 @@ namespace EmployeeManagement.Api.Controllers
 
                 return await employeeRepository.DeleteEmployee(id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error deleting data");
