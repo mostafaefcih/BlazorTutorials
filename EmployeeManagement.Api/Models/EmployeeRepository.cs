@@ -1,6 +1,8 @@
-﻿using EmployeeManagement.Api.Models.Filter;
+﻿using EmployeeManagement.Api.Helpers;
+using EmployeeManagement.Api.Models.Filter;
 using EmployeeManagement.Api.Models.Wrappers;
 using EmployeeManagement.Models;
+using EmployeeManagement.Models.Sort;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,15 +19,18 @@ namespace EmployeeManagement.Api.Models
         {
             this.appDbContext = appDbContext;
         }
-        public async Task<PagedResponse<List<Employee>>> GetAll(PaginationFilter filter) {
-          var result=  await appDbContext.Employees
-                   .Skip((filter.PageNumber - 1) * filter.PageSize)
-                   .Take(filter.PageSize)
-                   .ToListAsync();
+        public async Task<PagedResponse<List<Employee>>> GetAll(PaginationFilter filter, SortCriteria criteria)
+        {
+             
+            var result = await appDbContext.Employees
+                        .OrderByDynamic(criteria.SortField, criteria.SortOrder.ToUpper())
+                        .Skip((filter.PageNumber - 1) * filter.PageSize)
+                        .Take(filter.PageSize)
+                        .ToListAsync();
             var totalRecords = await appDbContext.Employees.CountAsync();
-            var pagedResponse = new PagedResponse<List<Employee>>(result,totalRecords, filter.PageNumber, filter.PageSize);
+            var pagedResponse = new PagedResponse<List<Employee>>(result, totalRecords, filter.PageNumber, filter.PageSize);
             return pagedResponse;
-          
+
         }
         public async Task<IEnumerable<Employee>> Search(string name, Gender? gender)
         {
@@ -51,7 +56,7 @@ namespace EmployeeManagement.Api.Models
 
         public async Task<Employee> GetEmployee(int employeeId)
         {
-            return await appDbContext.Employees.Include(e=>e.Department)
+            return await appDbContext.Employees.Include(e => e.Department)
                 .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
         }
         public async Task<Employee> GetEmployeeByEmail(string email)
@@ -103,6 +108,6 @@ namespace EmployeeManagement.Api.Models
             return null;
         }
 
-       
+
     }
 }

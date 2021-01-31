@@ -1,6 +1,7 @@
 ﻿using EmployeeManagement.Api.Models.Filter;
 using EmployeeManagement.Api.Models.Wrappers;
 using EmployeeManagement.Models;
+using EmployeeManagement.Models.Sort;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -35,9 +36,9 @@ namespace EmployeeManagement.Web.Services
             return await httpClient.GetJsonAsync<Employee>($"api/employees/{id}");
         }
         
-        public async Task<PagedResponse<List<Employee>>> GetAllEmployees(PaginationFilter filter) 
+        public async Task<PagedResponse<List<Employee>>> GetAllEmployees(PaginationFilter filter, SortCriteria criteria) 
         {
-            var url = $"api/Employees/getall?PageNumber={filter.PageNumber}&PageSize={filter.PageSize}";
+            var url = $"api/Employees/getall?PageNumber={filter.PageNumber}&PageSize={filter.PageSize}&sortField={criteria.SortField}&sortOrder={criteria.SortOrder} ";
             var result = await httpClient.GetJsonAsync<PagedResponse<List<Employee>>>(url);
             return result;
         }

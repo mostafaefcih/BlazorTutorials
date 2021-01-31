@@ -1,6 +1,7 @@
 ﻿using EmployeeManagement.Api.Models.Filter;
 using EmployeeManagement.Api.Models.Wrappers;
 using EmployeeManagement.Models;
+using EmployeeManagement.Models.Sort;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace EmployeeManagement.Api.Models
     public interface IEmployeeRepository
     {
         Task<IEnumerable<Employee>> GetEmployees();
-        Task<PagedResponse<List<Employee>>> GetAll(PaginationFilter filter);
+        Task<PagedResponse<List<Employee>>> GetAll(PaginationFilter filter, SortCriteria sort);
         Task<IEnumerable<Employee>> Search(string name, Gender? gender);
         Task<Employee> GetEmployee(int employeeId);
         Task<Employee> GetEmployeeByEmail(string email);

@@ -4,7 +4,16 @@
 
 @attribute [Authorize]
 <h3>Employee List</h3>
+<style>
+    .thead-light span {
+        cursor: pointer;
+    }
 
+    .thead-light i {
+        color: darkblue;
+        padding: 5px;
+    }
+</style>
 @if (Employees == null)
 {
     <div class="spinner"></div>
@@ -34,19 +43,32 @@ else
     <label for="">Show Footer</label>
     <span>@SelectedEmployeesCount</span>
     <table class="table">
-        <thead>
+        <thead class="thead-light">
             <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Date Of Birth</th>
+                <th><span @onclick="@(() => Sort("FirstName"))">Name</span>
+                    <i class="@(SortIndicator("FirstName"))"></i>
+                </th>
+                <th><span @onclick="@(() => Sort("Email"))">Email</span>
+                    <i class="@(SortIndicator("Email"))"></i>
+                </th>
+                <th><span @onclick="@(() => Sort("dateOfBrith"))">Date Of Birth</span>
+                    <i class="@(SortIndicator("dateOfBrith"))"></i>
+                </th>
                 <th>Actions</th>
+                @*<th>Name</th>
+                <th>Email</th>
+                <th>Date Of Birth</th>*@
             </tr>
         </thead>
 
         @foreach (var employee in SearchedEmployees)
         {
             <DisplayEmployee Employee="employee" ShowFooter="ShowFooter" OnEmployeeSelection="EmployeeSelectionChanged" onEmployeeDeleted="EmployeeDeleted"></DisplayEmployee>
+
         }
+        <Pager PageIndex=@paginatedList.PageNumber TotalPages=@paginatedList.TotalPages OnClick="PageIndexChanged"
+               HasNextPage=@paginatedList.HasNextPage HasPreviousPage=@paginatedList.HasPreviousPage>
+        </Pager>
         @if (SearchedEmployees.Count() == 0)
         {
             <div class="d-flex justify-content-center">

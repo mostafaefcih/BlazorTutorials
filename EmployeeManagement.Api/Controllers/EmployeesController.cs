@@ -2,6 +2,7 @@
 using EmployeeManagement.Api.Models;
 using EmployeeManagement.Api.Models.Filter;
 using EmployeeManagement.Models;
+using EmployeeManagement.Models.Sort;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,11 +27,11 @@ namespace EmployeeManagement.Api.Controllers
             this.uriService = uriService;
         }
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter ,[FromQuery] SortCriteria criteria)
         {
             var route = Request.Path.Value;
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
-            var pagedData = await employeeRepository.GetAll(validFilter);
+             var pagedData = await employeeRepository.GetAll(validFilter,criteria);
             var pagedReponse = PaginationHelper.CreatePagedReponse<Employee>(pagedData, validFilter, pagedData.TotalRecords, uriService, route);
             return Ok(pagedReponse);
         }

@@ -18,6 +18,22 @@ namespace EmployeeManagement.Api.Models.Wrappers
             this.Succeeded = true;
             this.Errors = null;
         }
+        public bool HasPreviousPage
+        {
+            get
+            {
+                return (PageNumber > 1);
+            }
+
+        }
+        public bool HasNextPage
+        {
+            get
+            {
+                return (PageNumber < TotalPages);
+            }
+             
+        }
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
         public Uri FirstPage { get; set; }
