@@ -28,6 +28,7 @@ namespace EmployeeManagement.Api.Models
                         .OrderByDynamic(criteria.SortField, criteria.SortOrder.ToUpper())
                         .Skip((filter.PageNumber - 1) * filter.PageSize)
                         .Take(filter.PageSize)
+                        .Include(d=>d.Department)
                         .ToListAsync();
             var totalRecords = await appDbContext.Employees.CountAsync();
             var pagedResponse = new PagedResponse<List<Employee>>(result, totalRecords, filter.PageNumber, filter.PageSize);
@@ -37,13 +38,13 @@ namespace EmployeeManagement.Api.Models
         //public async Task<IEnumerable<Employee>> Search(string name, Gender? gender)
         public async Task<IEnumerable<Employee>> Search(EmployeeFilter filter)
         {
-            int gnd = (int)filter.Gender;
+            //int gnd = (int)filter.Gender;
             IQueryable<Employee> query = appDbContext.Employees;
             //var x = string.IsNullOrEmpty(filter.Name) ? DBNull.Value : filter.Name;
             SqlParameter name = new SqlParameter("@Name", string.IsNullOrEmpty(filter.Name) ? (object)DBNull.Value : filter.Name); 
             SqlParameter Email = new SqlParameter("@Email", string.IsNullOrEmpty(filter.Email) ? (object)DBNull.Value : filter.Email);
-            SqlParameter Gender = new SqlParameter("@Gender", (int)filter.Gender==-1 ? (object)DBNull.Value : filter.Gender);
-            SqlParameter DepartmentId = new SqlParameter("@DepartmentId", (int)filter.DepartmentId==-1 ? (object)DBNull.Value : filter.DepartmentId);
+            SqlParameter Gender = new SqlParameter("@Gender", filter.Gender == null || (int)filter.Gender==-1  ? (object)DBNull.Value : (int)filter.Gender);
+            SqlParameter DepartmentId = new SqlParameter("@DepartmentId", filter.DepartmentId==null || (int)filter.DepartmentId==-1 ? (object)DBNull.Value : filter.DepartmentId);
            
             var result = appDbContext.Employees.
                 FromSqlRaw<Employee>("spSearchEmployees @Name, @Email, @Gender ,@DepartmentId"

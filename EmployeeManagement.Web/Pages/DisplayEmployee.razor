@@ -6,6 +6,7 @@
             <tr>
                 <td>@Employee.FirstName  @Employee.LastName</td>
                 <td>@Employee.Email</td>
+                <td>@Employee?.Department?.DepartmentName</td>
                 <td>@Convert.ToDateTime(Employee.DateOfBrith).ToShortDateString()</td>
                 <td>
                     <a href="@($"employeedetails/{Employee.EmployeeId}")"

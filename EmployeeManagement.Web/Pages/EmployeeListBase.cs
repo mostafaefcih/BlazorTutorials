@@ -1,6 +1,7 @@
 ﻿using EmployeeManagement.Api.Models.Filter;
 using EmployeeManagement.Api.Models.Wrappers;
 using EmployeeManagement.Models;
+using EmployeeManagement.Models.Filter;
 using EmployeeManagement.Models.Sort;
 using EmployeeManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
@@ -15,9 +16,14 @@ namespace EmployeeManagement.Web.Pages
     {
         [Inject]
         public IEmployeeService EmployeeService { get; set; }
+        [Inject]
+        public IDepartmentService DepartmentService { get; set; }
 
         public IEnumerable<Employee> Employees { get; set; }
+        public IEnumerable<Department> Departments { get; set; } = new List<Department>();
+        public EmployeeFilter employeeSearch { get; set; } = new EmployeeFilter();
         public IEnumerable<Employee> SearchedEmployees { get; set; } = new List<Employee>();
+        public Department FilterdDepartment { get; set; } 
         public bool ShowFooter { get; set; } = true;
         protected int SelectedEmployeesCount { get; set; } = 0;
         public PagedResponse<List<Employee>> paginatedList { get; set; }
@@ -50,6 +56,7 @@ namespace EmployeeManagement.Web.Pages
         }
         protected override async Task OnInitializedAsync()
         {
+            Departments = await DepartmentService.GetDepartments();
             await LoadData();
             //Employees = (await EmployeeService.GetEmployees()).ToList();
             //return base.OnInitializedAsync();
@@ -106,6 +113,15 @@ namespace EmployeeManagement.Web.Pages
             }
             return string.Empty;
         }
+        protected async Task Search() {
+          var result= await EmployeeService.Search(employeeSearch);
+            if(employeeSearch.DepartmentId !=null && employeeSearch.DepartmentId != default)
+            {
+                 FilterdDepartment =await DepartmentService.GetDepartment(employeeSearch.DepartmentId.Value);
+                
+            }
+            SearchedEmployees = result;
 
+        }
     }
 }

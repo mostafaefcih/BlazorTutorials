@@ -44,12 +44,12 @@ namespace EmployeeManagement.Api.Controllers
             {
                 var result = await employeeRepository.Search(filter);
 
-                if (result.Any())
-                {
+                //if (result.Any())
+                //{
                     return Ok(result);
-                }
+                //}
 
-                return NotFound();
+                //return NotFound();
             }
             catch (Exception ex)
             {

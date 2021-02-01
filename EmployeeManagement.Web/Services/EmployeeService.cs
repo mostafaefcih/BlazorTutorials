@@ -1,6 +1,7 @@
 ﻿using EmployeeManagement.Api.Models.Filter;
 using EmployeeManagement.Api.Models.Wrappers;
 using EmployeeManagement.Models;
+using EmployeeManagement.Models.Filter;
 using EmployeeManagement.Models.Sort;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -54,6 +55,10 @@ namespace EmployeeManagement.Web.Services
             return await httpClient.PutJsonAsync<Employee>("api/Employees", updatedEmployee);
         }
 
-       
+        public async Task<IEnumerable<Employee>> Search(EmployeeFilter filter)
+        {
+            var result= await httpClient.PostJsonAsync<List<Employee>>("api/Employees/Search", filter);
+            return result;
+        }
     }
 }
