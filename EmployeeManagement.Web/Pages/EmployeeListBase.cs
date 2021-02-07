@@ -27,9 +27,17 @@ namespace EmployeeManagement.Web.Pages
         public bool ShowFooter { get; set; } = true;
         protected int SelectedEmployeesCount { get; set; } = 0;
         public PagedResponse<List<Employee>> paginatedList { get; set; }
-        PaginationFilter filter = new PaginationFilter() { PageNumber = 1, PageSize = 10 };
+        PaginationFilter filter = new PaginationFilter() { PageNumber = 1, PageSize = 5 };
 
         SortCriteria sort = new SortCriteria() { SortField = "FirstName", SortOrder = "Asc" };
+       
+       protected async Task ResetSearch()
+        {
+            filter = new PaginationFilter() {  };
+            sort = new SortCriteria() { SortField = "FirstName", SortOrder = "Asc" };
+            employeeSearch  = new EmployeeFilter();
+            await LoadData();
+        }
         protected async Task Sort(string sortField)
         {
             if (sortField.Equals(sort.SortField))
@@ -45,7 +53,7 @@ namespace EmployeeManagement.Web.Pages
             //paginatedList = await service.GetPagedResult(pageNumber, currentSortField, currentSortOrder);
             //toDoList = paginatedList.Items;
         }
-        private async Task LoadData()
+            protected async Task LoadData()
         {
              paginatedList = (await EmployeeService.GetAllEmployees(filter, sort));
             Employees = paginatedList.Data;

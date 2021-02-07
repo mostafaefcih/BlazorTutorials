@@ -4,9 +4,7 @@ using EmployeeManagement.Models;
 using EmployeeManagement.Models.Filter;
 using EmployeeManagement.Models.Sort;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
