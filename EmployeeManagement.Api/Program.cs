@@ -20,6 +20,7 @@ namespace EmployeeManagement.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    //webBuilder.UseWebRoot
                     webBuilder.UseStartup<Startup>();
                 });
     }

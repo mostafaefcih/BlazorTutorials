@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement.Api", "E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSS.Components", "SSS.Components\SSS.Components.csproj", "{10F8F00D-2141-4868-A0F9-06EE424BFD9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{F456F72A-9E95-4337-B0B7-B55053B80924}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{10F8F00D-2141-4868-A0F9-06EE424BFD9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10F8F00D-2141-4868-A0F9-06EE424BFD9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10F8F00D-2141-4868-A0F9-06EE424BFD9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F456F72A-9E95-4337-B0B7-B55053B80924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F456F72A-9E95-4337-B0B7-B55053B80924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F456F72A-9E95-4337-B0B7-B55053B80924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F456F72A-9E95-4337-B0B7-B55053B80924}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
