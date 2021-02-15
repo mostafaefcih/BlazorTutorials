@@ -28,6 +28,10 @@ namespace EmployeeManagement.Web.Services
         public async Task DeleteEmployee(int employeeId)
         {
           await  httpClient.DeleteAsync($"api/employees/{employeeId}");
+        } 
+        public async Task GenerateReport()
+        {
+            var result=  await  httpClient.GetAsync($"api/employees/GenerateReport");
         }
 
         public async Task<Employee> GetEmployee(int id)

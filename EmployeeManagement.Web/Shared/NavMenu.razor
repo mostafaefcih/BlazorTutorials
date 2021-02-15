@@ -20,6 +20,13 @@
                             Match="NavLinkMatch.All">
                        <span class="oi oi-home" aria-hidden="true"></span> Create
                    </NavLink>
+               </li> 
+               <li class="nav-item px-3">
+                   <NavLink class="nav-link" href="https://localhost:44352/api/employees/GenerateReport"
+                          
+                            Match="NavLinkMatch.All">
+                       <span class="oi oi-home" aria-hidden="true"></span> generate report
+                   </NavLink>
                </li>
                <li class="nav-item px-3">
                    <NavLink class="nav-link" href="/identity/account/logout"
@@ -47,9 +54,11 @@
 </div>
 
 @code {
-    private bool collapseNavMenu = true;
+        private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+        private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    @using EmployeeManagement.Web.Services;
+    @inject IEmployeeService EmployeeService;
 
     @inject NavigationManager NavigationManager;
     private void HandleClick()

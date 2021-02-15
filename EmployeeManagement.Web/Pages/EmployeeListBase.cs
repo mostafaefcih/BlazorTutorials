@@ -5,6 +5,7 @@ using EmployeeManagement.Models.Filter;
 using EmployeeManagement.Models.Sort;
 using EmployeeManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,19 +24,19 @@ namespace EmployeeManagement.Web.Pages
         public IEnumerable<Department> Departments { get; set; } = new List<Department>();
         public EmployeeFilter employeeSearch { get; set; } = new EmployeeFilter();
         public IEnumerable<Employee> SearchedEmployees { get; set; } = new List<Employee>();
-        public Department FilterdDepartment { get; set; } 
+        public Department FilterdDepartment { get; set; }
         public bool ShowFooter { get; set; } = true;
         protected int SelectedEmployeesCount { get; set; } = 0;
         public PagedResponse<List<Employee>> paginatedList { get; set; }
         PaginationFilter filter = new PaginationFilter() { PageNumber = 1, PageSize = 5 };
 
         SortCriteria sort = new SortCriteria() { SortField = "FirstName", SortOrder = "Asc" };
-       
-       protected async Task ResetSearch()
+
+        protected async Task ResetSearch()
         {
-            filter = new PaginationFilter() {  };
+            filter = new PaginationFilter() { };
             sort = new SortCriteria() { SortField = "FirstName", SortOrder = "Asc" };
-            employeeSearch  = new EmployeeFilter();
+            employeeSearch = new EmployeeFilter();
             await LoadData();
         }
         protected async Task Sort(string sortField)
@@ -53,9 +54,9 @@ namespace EmployeeManagement.Web.Pages
             //paginatedList = await service.GetPagedResult(pageNumber, currentSortField, currentSortOrder);
             //toDoList = paginatedList.Items;
         }
-            protected async Task LoadData()
+        protected async Task LoadData()
         {
-             paginatedList = (await EmployeeService.GetAllEmployees(filter, sort));
+            paginatedList = (await EmployeeService.GetAllEmployees(filter, sort));
             Employees = paginatedList.Data;
             SearchedEmployees = Employees;
             //paginatedList = await service.GetPagedResult(pageNumber, currentSortField, currentSortOrder);
@@ -121,15 +122,28 @@ namespace EmployeeManagement.Web.Pages
             }
             return string.Empty;
         }
-        protected async Task Search() {
-          var result= await EmployeeService.Search(employeeSearch);
-            if(employeeSearch.DepartmentId !=null && employeeSearch.DepartmentId != default)
+        protected async Task Search()
+        {
+            var result = await EmployeeService.Search(employeeSearch);
+            if (employeeSearch.DepartmentId != null && employeeSearch.DepartmentId != default)
             {
-                 FilterdDepartment =await DepartmentService.GetDepartment(employeeSearch.DepartmentId.Value);
-                
+                FilterdDepartment = await DepartmentService.GetDepartment(employeeSearch.DepartmentId.Value);
+
             }
             SearchedEmployees = result;
 
+        }
+        [Inject]
+        IJSRuntime ThisJSRuntime { get; set; }
+
+        //private async Task DownloadPictureAsync()
+        //{
+        //    await ThisJSRuntime.InvokeVoidAsync("downloadInspectionPicture", ServerFilePath);
+        //}
+        protected async Task GenerateReport()
+        {
+            await ThisJSRuntime.InvokeVoidAsync("downloadReport");
+            //await EmployeeService.GenerateReport();
         }
     }
 }

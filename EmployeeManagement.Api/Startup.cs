@@ -30,7 +30,9 @@ namespace EmployeeManagement.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("DBConnection"))
+            //.LogTo(Console.WriteLine,LogLevel.Information) // for loging query in output window
+            );
             services.AddControllers();
             services.AddHttpContextAccessor();
             // Rest of the code

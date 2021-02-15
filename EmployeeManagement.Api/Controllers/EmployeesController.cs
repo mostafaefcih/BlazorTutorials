@@ -64,8 +64,10 @@ namespace EmployeeManagement.Api.Controllers
             LocalReport localReport = new LocalReport(path);
             localReport.AddDataSource("dsEmployee", dt);
             var result = localReport.Execute(RenderType.Pdf,extenstion,parameters,mimeType);
-            return File(result.MainStream,"application/pdf");
-        
+            return File(result.MainStream, "application/pdf");
+            //return File(result.MainStream, contentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8", fileDownloadName: "employee.xlsx");
+            //return File(result.MainStream, "application/octet-stream", "DarshReportExcel.xlsx");
+
         }
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter ,[FromQuery] SortCriteria criteria)

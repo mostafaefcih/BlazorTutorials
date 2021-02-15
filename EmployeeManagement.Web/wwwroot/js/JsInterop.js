@@ -19,3 +19,14 @@ function randomize(maxNumber) {
         })
         ;
 }
+
+
+window.downloadReport = function (p_strServerFilePath) {
+    var link = document.createElement('a');
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.href = 'https://localhost:44352/api/employees/GenerateReport';// + this.encodeURIComponent(p_strServerFilePath);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
