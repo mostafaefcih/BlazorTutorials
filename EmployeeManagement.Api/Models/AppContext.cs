@@ -1,10 +1,7 @@
 ﻿using EmployeeManagement.Models;
+
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace EmployeeManagement.Api.Models
 {
     public class AppDbContext:DbContext
@@ -13,10 +10,13 @@ namespace EmployeeManagement.Api.Models
         {
            
         }
+        public DbSet<EmployeeReportViewModel> EmployeeViewModel { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // This will prevent Migrations from creating a table.
+            modelBuilder.Entity<EmployeeReportViewModel>().HasNoKey().ToView(null);
             //Seed Departments Table
             modelBuilder.Entity<Department>().HasData(
                 new Department { DepartmentId = 1, DepartmentName = "IT" });

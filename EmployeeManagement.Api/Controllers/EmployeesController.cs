@@ -36,37 +36,40 @@ namespace EmployeeManagement.Api.Controllers
         }
         [HttpGet("GenerateReport")]
         public async Task<IActionResult> GenerateReport() {
+            #region generate report using DataTable
+            //var dt = new DataTable();
+            //dt.Columns.Add("FullName");
+            //dt.Columns.Add("Email");
+            //dt.Columns.Add("DateOfBirth");
+            //dt.Columns.Add("Gender");
+            //dt.Columns.Add("Department");
+            //var employeeList = new List<Employee>(); //await employeeRepository.GetEmployees();
+            //DataRow dr;
+            //foreach (var emp in employeeList)
+            //{
+            //    dr = dt.NewRow();
+            //    dr["FullName"] = $"{emp.FirstName}{emp.LastName} ";
+            //    dr["Email"] = emp.Email;
+            //    dr["Gender"] = emp.Gender;
+            //    dr["Department"] = emp.Department.DepartmentName;
+            //    dr["DateOfBirth"] = emp.DateOfBrith;
+            //    dt.Rows.Add(dr);
+            //}
+            #endregion
 
-            var dt = new DataTable();
-            dt.Columns.Add("FullName");
-            dt.Columns.Add("Email");
-            dt.Columns.Add("DateOfBirth");
-            dt.Columns.Add("Gender");
-            dt.Columns.Add("Department");
-            var employeeList = await employeeRepository.GetEmployees();
-            DataRow dr;
-            foreach (var emp in employeeList)
-            {
-                dr = dt.NewRow();
-                dr["FullName"] = $"{emp.FirstName}{emp.LastName} ";
-                dr["Email"] = emp.Email;
-                dr["Gender"] = emp.Gender;
-                dr["Department"] = emp.Department.DepartmentName;
-                dr["DateOfBirth"] = emp.DateOfBrith;
-                dt.Rows.Add(dr);
-            }
+
+            var employeeList = await employeeRepository.GetEmployeesAsSP();
             string mimeType = "";
             int extenstion = 1;
-
             var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\EmployeeReport.rdlc";
+
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("param", "Blazor RDLC Report");
             LocalReport localReport = new LocalReport(path);
-            localReport.AddDataSource("dsEmployee", dt);
+
+            localReport.AddDataSource("dsEmployee", employeeList);
             var result = localReport.Execute(RenderType.Pdf,extenstion,parameters,mimeType);
             return File(result.MainStream, "application/pdf");
-            //return File(result.MainStream, contentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8", fileDownloadName: "employee.xlsx");
-            //return File(result.MainStream, "application/octet-stream", "DarshReportExcel.xlsx");
 
         }
         [HttpGet("GetAll")]
