@@ -14,6 +14,7 @@ namespace EmployeeManagement.Api.Models
     {
         Task<IEnumerable<Employee>> GetEmployees();
         Task<IEnumerable<EmployeeReportViewModel>> GetEmployeesAsSP();
+        Task<IEnumerable<DepartmentsEmployeesReportViewModel>> GetDepartmentsEmployeesAsSP();
         Task<PagedResponse<List<Employee>>> GetAll(PaginationFilter filter, SortCriteria sort);
         Task<IEnumerable<Employee>> Search(EmployeeFilter filter);
         //Task<IEnumerable<Employee>> Search(string name, Gender? gender);

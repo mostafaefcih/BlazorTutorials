@@ -64,7 +64,14 @@ namespace EmployeeManagement.Api.Models
 
             //return await query.ToListAsync();
         }
-        public async Task<IEnumerable<EmployeeReportViewModel>> GetEmployeesAsSP()
+        public async Task<IEnumerable<DepartmentsEmployeesReportViewModel>> GetDepartmentsEmployeesAsSP()
+        {
+            var result = appDbContext.DepartmentsEmployeesReportViewModel.
+          FromSqlRaw<DepartmentsEmployeesReportViewModel>("spGetAllDepartmentWithDetails").AsNoTracking().ToListAsync();
+            return await result;
+
+            //return await appDbContext.Employees.Include(e => e.Department).ToListAsync();
+        }   public async Task<IEnumerable<EmployeeReportViewModel>> GetEmployeesAsSP()
         {
             var result = appDbContext.EmployeeViewModel.
           FromSqlRaw<EmployeeReportViewModel>("spGetAllEmployee").AsNoTracking().ToListAsync();

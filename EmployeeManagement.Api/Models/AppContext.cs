@@ -11,11 +11,13 @@ namespace EmployeeManagement.Api.Models
            
         }
         public DbSet<EmployeeReportViewModel> EmployeeViewModel { get; set; }
+        public DbSet<DepartmentsEmployeesReportViewModel> DepartmentsEmployeesReportViewModel { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // This will prevent Migrations from creating a table.
+            modelBuilder.Entity<DepartmentsEmployeesReportViewModel>().HasNoKey().ToView(null);
             modelBuilder.Entity<EmployeeReportViewModel>().HasNoKey().ToView(null);
             //Seed Departments Table
             modelBuilder.Entity<Department>().HasData(

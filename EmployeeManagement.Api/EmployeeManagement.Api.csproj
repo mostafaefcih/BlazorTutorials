@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Reports\EmployeeReport - Copy.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="wwwroot\Reports\EmployeeReport.rdlc" />
   </ItemGroup>
 
@@ -13,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="wwwroot\Reports\EmployeeReport - Copy.rdlc" />
     <EmbeddedResource Include="wwwroot\Reports\EmployeeReport.rdlc" />
   </ItemGroup>
 

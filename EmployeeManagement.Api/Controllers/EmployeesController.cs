@@ -58,7 +58,7 @@ namespace EmployeeManagement.Api.Controllers
             #endregion
 
 
-            var employeeList = await employeeRepository.GetEmployeesAsSP();
+            var employeeList = await employeeRepository.GetDepartmentsEmployeesAsSP();
             string mimeType = "";
             int extenstion = 1;
             var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\EmployeeReport.rdlc";

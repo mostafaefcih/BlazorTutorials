@@ -287,7 +287,9 @@ namespace EmployeeManagement.Api.ReportDataSet {
             
             private global::System.Data.DataColumn columnGender;
             
-            private global::System.Data.DataColumn columnDepartment;
+            private global::System.Data.DataColumn columnDepartmentName;
+            
+            private global::System.Data.DataColumn columnDepartmentId;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -356,9 +358,17 @@ namespace EmployeeManagement.Api.ReportDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DepartmentColumn {
+            public global::System.Data.DataColumn DepartmentNameColumn {
                 get {
-                    return this.columnDepartment;
+                    return this.columnDepartmentName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DepartmentIdColumn {
+                get {
+                    return this.columnDepartmentId;
                 }
             }
             
@@ -399,14 +409,15 @@ namespace EmployeeManagement.Api.ReportDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public dsEmployeeRow AdddsEmployeeRow(string FullName, string Email, System.DateTimeOffset DateOfBrith, string Gender, string Department) {
+            public dsEmployeeRow AdddsEmployeeRow(string FullName, string Email, System.DateTimeOffset DateOfBrith, string Gender, string DepartmentName, string DepartmentId) {
                 dsEmployeeRow rowdsEmployeeRow = ((dsEmployeeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         FullName,
                         Email,
                         DateOfBrith,
                         Gender,
-                        Department};
+                        DepartmentName,
+                        DepartmentId};
                 rowdsEmployeeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdsEmployeeRow);
                 return rowdsEmployeeRow;
@@ -433,7 +444,8 @@ namespace EmployeeManagement.Api.ReportDataSet {
                 this.columnEmail = base.Columns["Email"];
                 this.columnDateOfBrith = base.Columns["DateOfBrith"];
                 this.columnGender = base.Columns["Gender"];
-                this.columnDepartment = base.Columns["Department"];
+                this.columnDepartmentName = base.Columns["DepartmentName"];
+                this.columnDepartmentId = base.Columns["DepartmentId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -447,8 +459,10 @@ namespace EmployeeManagement.Api.ReportDataSet {
                 base.Columns.Add(this.columnDateOfBrith);
                 this.columnGender = new global::System.Data.DataColumn("Gender", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnGender);
-                this.columnDepartment = new global::System.Data.DataColumn("Department", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDepartment);
+                this.columnDepartmentName = new global::System.Data.DataColumn("DepartmentName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDepartmentName);
+                this.columnDepartmentId = new global::System.Data.DataColumn("DepartmentId", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDepartmentId);
                 this.ExtendedProperties.Add("Generator_TablePropName", "_dsEmployee");
                 this.ExtendedProperties.Add("Generator_UserTableName", "dsEmployee");
             }
@@ -657,17 +671,33 @@ namespace EmployeeManagement.Api.ReportDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Department {
+            public string DepartmentName {
                 get {
                     try {
-                        return ((string)(this[this.tabledsEmployee.DepartmentColumn]));
+                        return ((string)(this[this.tabledsEmployee.DepartmentNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Department\' in table \'dsEmployee\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'DepartmentName\' in table \'dsEmployee\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tabledsEmployee.DepartmentColumn] = value;
+                    this[this.tabledsEmployee.DepartmentNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DepartmentId {
+                get {
+                    try {
+                        return ((string)(this[this.tabledsEmployee.DepartmentIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DepartmentId\' in table \'dsEmployee\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledsEmployee.DepartmentIdColumn] = value;
                 }
             }
             
@@ -721,14 +751,26 @@ namespace EmployeeManagement.Api.ReportDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDepartmentNull() {
-                return this.IsNull(this.tabledsEmployee.DepartmentColumn);
+            public bool IsDepartmentNameNull() {
+                return this.IsNull(this.tabledsEmployee.DepartmentNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDepartmentNull() {
-                this[this.tabledsEmployee.DepartmentColumn] = global::System.Convert.DBNull;
+            public void SetDepartmentNameNull() {
+                this[this.tabledsEmployee.DepartmentNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDepartmentIdNull() {
+                return this.IsNull(this.tabledsEmployee.DepartmentIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDepartmentIdNull() {
+                this[this.tabledsEmployee.DepartmentIdColumn] = global::System.Convert.DBNull;
             }
         }
         
