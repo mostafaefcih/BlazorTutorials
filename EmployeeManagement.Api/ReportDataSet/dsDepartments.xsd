@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsDepartments" targetNamespace="http://tempuri.org/dsDepartments.xsd" xmlns:mstns="http://tempuri.org/dsDepartments.xsd" xmlns="http://tempuri.org/dsDepartments.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsDepartments" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsDepartments" msprop:Generator_UserDSName="dsDepartments">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtDepartment" msprop:Generator_TableClassName="dtDepartmentDataTable" msprop:Generator_TableVarName="tabledtDepartment" msprop:Generator_RowChangedName="dtDepartmentRowChanged" msprop:Generator_TablePropName="dtDepartment" msprop:Generator_RowDeletingName="dtDepartmentRowDeleting" msprop:Generator_RowChangingName="dtDepartmentRowChanging" msprop:Generator_RowEvHandlerName="dtDepartmentRowChangeEventHandler" msprop:Generator_RowDeletedName="dtDepartmentRowDeleted" msprop:Generator_RowClassName="dtDepartmentRow" msprop:Generator_UserTableName="dtDepartment" msprop:Generator_RowEvArgName="dtDepartmentRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DepartmentName" msprop:Generator_ColumnVarNameInTable="columnDepartmentName" msprop:Generator_ColumnPropNameInRow="DepartmentName" msprop:Generator_ColumnPropNameInTable="DepartmentNameColumn" msprop:Generator_UserColumnName="DepartmentName" type="xs:string" minOccurs="0" />
+              <xs:element name="DepartmentId" msprop:Generator_ColumnVarNameInTable="columnDepartmentId" msprop:Generator_ColumnPropNameInRow="DepartmentId" msprop:Generator_ColumnPropNameInTable="DepartmentIdColumn" msprop:Generator_UserColumnName="DepartmentId" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

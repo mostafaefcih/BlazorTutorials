@@ -20,16 +20,19 @@ namespace EmployeeManagement.Api.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        private readonly IEmployeeRepository employeeRepository;
+        private readonly IEmployeeRepository employeeRepository; 
+        private readonly IDepartmentRepository departmentRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IUriService uriService;
 
         public EmployeesController(IEmployeeRepository employeeRepository,
-            IWebHostEnvironment webHostEnvironment,
+              IDepartmentRepository departmentRepository,
+        IWebHostEnvironment webHostEnvironment,
 
             IUriService uriService)
         {
             this.employeeRepository = employeeRepository;
+            this.departmentRepository = departmentRepository;
             _webHostEnvironment = webHostEnvironment;
             this.uriService = uriService;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
@@ -57,17 +60,20 @@ namespace EmployeeManagement.Api.Controllers
             //}
             #endregion
 
-
+            var departments = await departmentRepository.GetDepartments();
             var employeeList = await employeeRepository.GetEmployeesAsSP();
             string mimeType = "";
             int extenstion = 1;
-            var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\EmployeeReport.rdlc";
+            //var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\EmployeeReport.rdlc";
+            var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\DepartmentsDetailsReporth.rdlc";
+            var subPath = $"{_webHostEnvironment.WebRootPath}\\Reports\\EmployeesPerDepartmentReport.rdlc";
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("param", "Blazor RDLC Report");
+            //parameters.Add("param", "Blazor RDLC Report");
             LocalReport localReport = new LocalReport(path);
 
-            localReport.AddDataSource("dsEmployee", employeeList);
+            localReport.AddDataSource("dsEmployeesPerDepartment", employeeList);
+            localReport.AddDataSource("dsDepartment", departments);
             var result = localReport.Execute(RenderType.Pdf,extenstion,parameters,mimeType);
             return File(result.MainStream, "application/pdf");
 
