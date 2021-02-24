@@ -5,8 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Reports\HelloWorld.repx" />
+    <None Remove="Reports\HelloWorld.vsrepx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\HelloWorld.repx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    <PackageReference Include="DevExpress.Blazor.Reporting" Version="20.1.8-pre-20246" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview3.20168.3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.DataAnnotations.Validation" Version="3.2.0-rc1.20223.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.2" />
@@ -22,6 +32,21 @@
   <ItemGroup>
     <ProjectReference Include="..\EmployeeManagement.Models\EmployeeManagement.Models.csproj" />
     <ProjectReference Include="..\SSS.Components\SSS.Components.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Reports\GetAllEmployees.cs">
+      <DependentUpon>HelloWorld.vsrepx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\GetAllEmployees.Designer.cs">
+      <DependentUpon>HelloWorld.vsrepx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\HelloWorld.cs">
+      <DependentUpon>HelloWorld.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\HelloWorld.Designer.cs">
+      <DependentUpon>HelloWorld.repx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

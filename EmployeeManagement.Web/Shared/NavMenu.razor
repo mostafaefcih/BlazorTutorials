@@ -20,34 +20,47 @@
                             Match="NavLinkMatch.All">
                        <span class="oi oi-home" aria-hidden="true"></span> Create
                    </NavLink>
-               </li> 
+               </li>
                <li class="nav-item px-3">
                    <NavLink class="nav-link" href="https://localhost:44352/api/employees/GenerateReport"
-                          
                             Match="NavLinkMatch.All">
                        <span class="oi oi-home" aria-hidden="true"></span> generate report
+                   </NavLink>
+               </li>
+
+               <li class="nav-item px-3">
+                   <NavLink class="nav-link" href="documentviewer">
+                       <span class="oi oi-document" aria-hidden="true"></span>
+                       Document Viewer
+                   </NavLink>
+               </li>
+               <li class="nav-item px-3">
+                   <NavLink class="nav-link" href="reportdesigner">
+                       <span class="oi oi-wrench" aria-hidden="true"></span>
+                       Report Designer
                    </NavLink>
                </li>
                <li class="nav-item px-3">
                    <NavLink class="nav-link" href="/identity/account/logout"
                             Match="NavLinkMatch.All">
                        <span class="oi oi-power-standby" aria-hidden="true"></span>
-                       Log Out  
+                       Log Out
                    </NavLink>
                </li>
            </Authorized>
            <NotAuthorized>
-    <li class="nav-item px-3">
-        <NavLink class="nav-link" href="/identity/account/Login"
-                 Match="NavLinkMatch.All">
-            <span class="oi oi-lock-locked" aria-hidden="true"></span> Log In
-        </NavLink> 
-        <NavLink class="nav-link" href="/jstest"
-                 Match="NavLinkMatch.All">
-            <span class="oi oi-lock-locked" aria-hidden="true"></span> js test
-        </NavLink>
-    </li>
-</NotAuthorized>
+               <li class="nav-item px-3">
+                   <NavLink class="nav-link" href="/identity/account/Login"
+                            Match="NavLinkMatch.All">
+                       <span class="oi oi-lock-locked" aria-hidden="true"></span> Log In
+                   </NavLink>
+                   <NavLink class="nav-link" href="/jstest"
+                            Match="NavLinkMatch.All">
+                       <span class="oi oi-lock-locked" aria-hidden="true"></span> js test
+                   </NavLink>
+            
+               </li>
+           </NotAuthorized>
        </AuthorizeView>
 
     </ul>

@@ -1,5 +1,8 @@
 
 using AutoMapper;
+using DevExpress.Blazor.Reporting;
+using DevExpress.XtraReports.Web.Extensions;
+using EmployeeManagement.Web.Helpers;
 using EmployeeManagement.Web.MapperProfile;
 using EmployeeManagement.Web.Services;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +32,9 @@ namespace EmployeeManagement.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDevExpressBlazorReporting();
+            // Register the storage after the AddDevExpressBlazorReporting method call.
+            services.AddScoped<ReportStorageWebExtension, ReportStorageWebExtension1>();
             services.AddAuthentication("Identity.Application").
                 AddCookie();
             services.AddRazorPages();
@@ -57,7 +63,7 @@ namespace EmployeeManagement.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseDevExpressBlazorReporting();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
@@ -66,6 +72,7 @@ namespace EmployeeManagement.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
