@@ -1,4 +1,4 @@
-
+using Syncfusion.Blazor;
 using AutoMapper;
 using DevExpress.Blazor.Reporting;
 using DevExpress.XtraReports.Web.Extensions;
@@ -32,6 +32,7 @@ namespace EmployeeManagement.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSyncfusionBlazor();
             services.AddDevExpressBlazorReporting();
             // Register the storage after the AddDevExpressBlazorReporting method call.
             services.AddScoped<ReportStorageWebExtension, ReportStorageWebExtension1>();
@@ -53,6 +54,9 @@ namespace EmployeeManagement.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider
+                .RegisterLicense
+                ("NDA0MTk3QDMxMzgyZTM0MmUzMGZDczZsajFJRGFuaW9CNkZtNU9WTWM3ZGtXTjlTKzNYMmx5YjFQdWswbWc9;NDA0MTk4QDMxMzgyZTM0MmUzMEtBM3ZlVDQvMCt3TksvYkk5Uyttbi9LdjZvSUhkT2RrVWd6MUVOV2dvL0E9;NDA0MTk5QDMxMzgyZTM0MmUzMEVlcGQxL1ZSbUpSbndSSjJERjkwUm1DK2V3SytkdHhqWC90dXpUckZjYUk9");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
