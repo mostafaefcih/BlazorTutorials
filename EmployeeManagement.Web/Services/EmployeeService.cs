@@ -3,6 +3,7 @@ using EmployeeManagement.Api.Models.Wrappers;
 using EmployeeManagement.Models;
 using EmployeeManagement.Models.Filter;
 using EmployeeManagement.Models.Sort;
+using EmployeeManagement.Web.TokenHelper;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -13,14 +14,16 @@ namespace EmployeeManagement.Web.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly HttpClient httpClient;
-
-        public EmployeeService(HttpClient httpClient)
+        private readonly TokenProvider tokenProvider;
+        public EmployeeService(HttpClient httpClient, TokenProvider tokenProvider)
         {
             this.httpClient = httpClient;
+            this.tokenProvider = tokenProvider;
         }
 
         public async Task<Employee> CreateEmployee(Employee employee)
         {
+            var token = tokenProvider.AccessToken;
             return await httpClient.PostJsonAsync<Employee>("api/Employees", employee);
 
         }

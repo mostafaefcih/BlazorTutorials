@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeManagement.Web.TokenHelper;
 
 namespace EmployeeManagement.Web
 {
@@ -49,6 +50,8 @@ namespace EmployeeManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44352/");
             });
+            //services.AddHttpClient();
+            services.AddScoped<TokenProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
