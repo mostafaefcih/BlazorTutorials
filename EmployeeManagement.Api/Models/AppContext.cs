@@ -1,12 +1,12 @@
 ﻿using EmployeeManagement.Models;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 namespace EmployeeManagement.Api.Models
 {
-    public class AppDbContext:DbContext
-    {
-        public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
+    public class AppDbContext:IdentityDbContext<ApplicationUser>
+    { 
+       public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
         {
            
         }

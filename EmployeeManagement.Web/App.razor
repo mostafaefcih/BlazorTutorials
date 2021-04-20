@@ -21,14 +21,14 @@
 </CascadingAuthenticationState>
 
 @code {
-    [Parameter]
-    public InitialApplicationState InitialState { get; set; }
+    //[Parameter]
+    //public InitialApplicationState InitialState { get; set; }
 
-    protected override Task OnInitializedAsync()
-    {
-        TokenProvider.AccessToken = InitialState.AccessToken;
-        TokenProvider.RefreshToken = InitialState.RefreshToken;
+    //protected override Task OnInitializedAsync()
+    //{
+    //    TokenProvider.AccessToken = InitialState.AccessToken;
+    //    TokenProvider.RefreshToken = InitialState.RefreshToken;
 
-        return base.OnInitializedAsync();
-    }
+    //    return base.OnInitializedAsync();
+    //}
 }

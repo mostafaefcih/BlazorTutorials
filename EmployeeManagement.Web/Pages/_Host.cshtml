@@ -23,16 +23,17 @@
 
 </head>
 <body>
-    @{
+    @*@{
         var tokens = new InitialApplicationState
         {
             AccessToken = await HttpContext.GetTokenAsync("access_token"),
             RefreshToken = await HttpContext.GetTokenAsync("refresh_token")
         };
-    }
+    }*@
     <app>
         <component type="typeof(App)" render-mode="ServerPrerendered"
-                   param-InitialState="tokens" />
+                   />
+                   @*param-InitialState="tokens"*@ 
     </app>
 
     <div id="blazor-error-ui">
