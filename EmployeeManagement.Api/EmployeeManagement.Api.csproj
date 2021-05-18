@@ -1,11 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\Reports\EmployeeReport - Copy.rdlc" />
+    <Content Remove="wwwroot\Reports\DepartmentReport.rdlc" />
+    <Content Remove="wwwroot\Reports\DepartmentsDetailsReporth.rdlc" />
+    <Content Remove="wwwroot\Reports\EmployeesPerDepartmentReport.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,8 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="wwwroot\Reports\EmployeeReport - Copy.rdlc" />
+    <EmbeddedResource Include="wwwroot\Reports\DepartmentReport.rdlc" />
+    <EmbeddedResource Include="wwwroot\Reports\DepartmentsDetailsReporth.rdlc" />
     <EmbeddedResource Include="wwwroot\Reports\EmployeeReport.rdlc" />
+    <EmbeddedResource Include="wwwroot\Reports\EmployeesPerDepartmentReport.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,24 +31,64 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="System.CodeDom" Version="5.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.9.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ReportDataSet\dsDepartment.Designer.cs">
+      <DependentUpon>dsDepartment.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="ReportDataSet\dsDepartments.Designer.cs">
+      <DependentUpon>dsDepartments.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="ReportDataSet\dsEmployee.Designer.cs">
       <DependentUpon>dsEmployee.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="ReportDataSet\dsEmployessPerDepartment.Designer.cs">
+      <DependentUpon>dsEmployessPerDepartment.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ReportDataSet\dsDepartment.xsc">
+      <DependentUpon>dsDepartment.xsd</DependentUpon>
+    </None>
+    <None Update="ReportDataSet\dsDepartment.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>dsDepartment.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Update="ReportDataSet\dsDepartment.xss">
+      <DependentUpon>dsDepartment.xsd</DependentUpon>
+    </None>
+    <None Update="ReportDataSet\dsDepartments.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>dsDepartments.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
     <None Update="ReportDataSet\dsEmployee.xsc">
       <DependentUpon>dsEmployee.xsd</DependentUpon>
     </None>
@@ -55,6 +99,17 @@
     </None>
     <None Update="ReportDataSet\dsEmployee.xss">
       <DependentUpon>dsEmployee.xsd</DependentUpon>
+    </None>
+    <None Update="ReportDataSet\dsEmployessPerDepartment.xsc">
+      <DependentUpon>dsEmployessPerDepartment.xsd</DependentUpon>
+    </None>
+    <None Update="ReportDataSet\dsEmployessPerDepartment.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>dsEmployessPerDepartment.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Update="ReportDataSet\dsEmployessPerDepartment.xss">
+      <DependentUpon>dsEmployessPerDepartment.xsd</DependentUpon>
     </None>
   </ItemGroup>
 

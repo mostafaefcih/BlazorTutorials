@@ -1,8 +1,10 @@
-﻿<CascadingAuthenticationState>
+﻿@using EmployeeManagement.Web.TokenHelper
+@inject TokenProvider TokenProvider
+<CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly">
         <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" 
-                                DefaultLayout="@typeof(MainLayout)" >
+            <AuthorizeRouteView RouteData="@routeData"
+                                DefaultLayout="@typeof(MainLayout)">
 
                 <NotAuthorized>
                     Please login or register to view this content
@@ -17,3 +19,16 @@
         </NotFound>
     </Router>
 </CascadingAuthenticationState>
+
+@code {
+    //[Parameter]
+    //public InitialApplicationState InitialState { get; set; }
+
+    //protected override Task OnInitializedAsync()
+    //{
+    //    TokenProvider.AccessToken = InitialState.AccessToken;
+    //    TokenProvider.RefreshToken = InitialState.RefreshToken;
+
+    //    return base.OnInitializedAsync();
+    //}
+}

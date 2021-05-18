@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EmployeeManagement.Api.Controllers
@@ -20,16 +18,19 @@ namespace EmployeeManagement.Api.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        private readonly IEmployeeRepository employeeRepository;
+        private readonly IEmployeeRepository employeeRepository; 
+        private readonly IDepartmentRepository departmentRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IUriService uriService;
 
         public EmployeesController(IEmployeeRepository employeeRepository,
-            IWebHostEnvironment webHostEnvironment,
+              IDepartmentRepository departmentRepository,
+        IWebHostEnvironment webHostEnvironment,
 
             IUriService uriService)
         {
             this.employeeRepository = employeeRepository;
+            this.departmentRepository = departmentRepository;
             _webHostEnvironment = webHostEnvironment;
             this.uriService = uriService;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
@@ -59,15 +60,18 @@ namespace EmployeeManagement.Api.Controllers
 
 
             var employeeList = await employeeRepository.GetDepartmentsEmployeesAsSP();
+            var departments = await departmentRepository.GetDepartments();
+            //var employeeList = await employeeRepository.GetEmployeesAsSP();
             string mimeType = "";
             int extenstion = 1;
             var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\EmployeeReport.rdlc";
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("param", "Blazor RDLC Report");
+            //parameters.Add("param", "Blazor RDLC Report");
             LocalReport localReport = new LocalReport(path);
 
-            localReport.AddDataSource("dsEmployee", employeeList);
+            localReport.AddDataSource("dsEmployeesPerDepartment", employeeList);
+            localReport.AddDataSource("dsDepartment", departments);
             var result = localReport.Execute(RenderType.Pdf,extenstion,parameters,mimeType);
             return File(result.MainStream, "application/pdf");
 

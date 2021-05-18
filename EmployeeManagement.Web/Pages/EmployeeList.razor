@@ -2,7 +2,7 @@
 @using EmployeeManagement.Models
 @inherits EmployeeListBase
 
-@attribute [Authorize]
+@*@attribute [Authorize]*@
 <h3>Employee List</h3>
 <style>
     .thead-light span {
@@ -14,6 +14,7 @@
         padding: 5px;
     }
 </style>
+<SfCalendar TValue="DateTime?" ></SfCalendar>
 @if (Employees == null)
 {
     <div class="spinner"></div>
@@ -79,6 +80,7 @@ else
         <hr />
     </EditForm>
 
+    <Syncfusion.Blazor.Grids.SfGrid DataSource="SearchedEmployees"></Syncfusion.Blazor.Grids.SfGrid>
     <input type="button" class="btn btn-success" @onclick="GenerateReport" value="Generate Report" />
     <input type="checkbox" @bind="ShowFooter" id="showFooter" />
     <label for="">Show Footer</label>

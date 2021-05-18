@@ -1,5 +1,8 @@
-
+using Syncfusion.Blazor;
 using AutoMapper;
+using DevExpress.Blazor.Reporting;
+using DevExpress.XtraReports.Web.Extensions;
+using EmployeeManagement.Web.Helpers;
 using EmployeeManagement.Web.MapperProfile;
 using EmployeeManagement.Web.Services;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeManagement.Web.TokenHelper;
 
 namespace EmployeeManagement.Web
 {
@@ -29,6 +33,10 @@ namespace EmployeeManagement.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSyncfusionBlazor();
+            services.AddDevExpressBlazorReporting();
+            // Register the storage after the AddDevExpressBlazorReporting method call.
+            services.AddScoped<ReportStorageWebExtension, ReportStorageWebExtension1>();
             services.AddAuthentication("Identity.Application").
                 AddCookie();
             services.AddRazorPages();
@@ -42,11 +50,16 @@ namespace EmployeeManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44352/");
             });
+            //services.AddHttpClient();
+            services.AddScoped<TokenProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider
+                .RegisterLicense
+                ("NDA0MTk3QDMxMzgyZTM0MmUzMGZDczZsajFJRGFuaW9CNkZtNU9WTWM3ZGtXTjlTKzNYMmx5YjFQdWswbWc9;NDA0MTk4QDMxMzgyZTM0MmUzMEtBM3ZlVDQvMCt3TksvYkk5Uyttbi9LdjZvSUhkT2RrVWd6MUVOV2dvL0E9;NDA0MTk5QDMxMzgyZTM0MmUzMEVlcGQxL1ZSbUpSbndSSjJERjkwUm1DK2V3SytkdHhqWC90dXpUckZjYUk9");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -57,7 +70,7 @@ namespace EmployeeManagement.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseDevExpressBlazorReporting();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
@@ -66,6 +79,7 @@ namespace EmployeeManagement.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

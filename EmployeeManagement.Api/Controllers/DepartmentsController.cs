@@ -1,5 +1,7 @@
-﻿using EmployeeManagement.Api.Models;
+﻿ using EmployeeManagement.Api.Constants;
+using EmployeeManagement.Api.Models;
 using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -7,6 +9,7 @@ using System.Threading.Tasks;
 
 [Route("api/[controller]")]
 [ApiController]
+//[Authorize]
 public class DepartmentsController : ControllerBase
 {
     private readonly IDepartmentRepository departmentRepository;
@@ -15,10 +18,12 @@ public class DepartmentsController : ControllerBase
     {
         this.departmentRepository = departmentRepository;
     }
-
-    [HttpGet]
+    //[Authorize(Roles = Roles.Admin.ToString())]
+    //[Authorize(Roles ="Admin")]
+    //[HttpGet("GetAll")]
     public async Task<ActionResult> GetDepartments()
     {
+
         try
         {
             return Ok(await departmentRepository.GetDepartments());
@@ -29,7 +34,6 @@ public class DepartmentsController : ControllerBase
                 "Error retrieving data from the database");
         }
     }
-
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Department>> GetDepartment(int id)
     {

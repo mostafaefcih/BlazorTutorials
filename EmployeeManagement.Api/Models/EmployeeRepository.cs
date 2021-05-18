@@ -81,8 +81,7 @@ namespace EmployeeManagement.Api.Models
         }
         public async Task<IEnumerable<Employee>> GetEmployees()
         {
-            var result = appDbContext.Employees.
-          FromSqlRaw("spGetAllEmployee").AsNoTracking().ToListAsync();
+            var result = appDbContext.Employees.Include(e => e.Department).AsNoTracking().ToListAsync();
             return await result;
             
             //return await appDbContext.Employees.Include(e => e.Department).ToListAsync();

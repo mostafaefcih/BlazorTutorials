@@ -1,0 +1,60 @@
+﻿@page "/CharJS"
+@inject IJSRuntime js
+@using EmployeeManagement.Web.Services;
+@using EmployeeManagement.Models;
+@using System.Data;
+<h3>CharJSDemo</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <canvas id="Chart"></canvas>
+        </div>
+        <div class="col-sm-6">
+            <canvas id="Chart"></canvas>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Inject]
+    public IEmployeeService EmployeeService { get; set; }
+    public IEnumerable<Employee> Employees = new List<Employee>();
+    List<string> departments = new List<string>();
+    List<int> EmpsPerDepratment = new List<int>();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Employees = (await EmployeeService.GetEmployees()).ToList();
+            departments =   Employees.Select(r => r.Department.DepartmentName).Distinct().ToList();
+
+            foreach (var item in departments)
+            {
+                var count = Employees.Count(emp => emp.Department.DepartmentName == item);
+                EmpsPerDepratment.Add(count);
+            }
+
+            await  js.InvokeVoidAsync("CharIt", departments, EmpsPerDepratment);
+            await  base.OnAfterRenderAsync(firstRender);
+
+        }
+    }
+    //protected override void OnAfterRender(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        departments = Employees.Select(r => r.Department.DepartmentName).Distinct().ToList();
+
+    //        foreach (var item in departments)
+    //        {
+    //            var count = Employees.Count(emp => emp.Department.DepartmentName == item);
+    //            EmpsPerDepratment.Add(count);
+    //        }
+
+    //        js.InvokeVoidAsync("CharIt", departments , EmpsPerDepratment);
+
+    //    }
+    //    base.OnAfterRender(firstRender);
+    //}
+}
