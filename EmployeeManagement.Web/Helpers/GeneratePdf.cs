@@ -14,6 +14,7 @@ namespace EmployeeManagement.Web.Helpers
         {
             this.Url = _url;
         }
+        // just test rotative it's convert html to pdf
         public byte[] GetPdf()
         {
             var switchs = $"-q {Url} -";
