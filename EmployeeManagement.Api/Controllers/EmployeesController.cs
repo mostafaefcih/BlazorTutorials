@@ -36,6 +36,9 @@ namespace EmployeeManagement.Api.Controllers
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
         [HttpGet("GenerateReport")]
+        // please not this just for demo and test  purpos method and need enhancement 
+        // it's not support subreports
+        // we can find one better than this
         public async Task<IActionResult> GenerateReport() {
             #region generate report using DataTable
             //var dt = new DataTable();
@@ -64,14 +67,15 @@ namespace EmployeeManagement.Api.Controllers
             //var employeeList = await employeeRepository.GetEmployeesAsSP();
             string mimeType = "";
             int extenstion = 1;
-            var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\EmployeeReport.rdlc";
+            //var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\EmployeeReport.rdlc";
+            var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\EmployeesPerDepartmentReport.rdlc";
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             //parameters.Add("param", "Blazor RDLC Report");
             LocalReport localReport = new LocalReport(path);
 
+            //localReport.AddDataSource("dsDepartment", departments);
             localReport.AddDataSource("dsEmployeesPerDepartment", employeeList);
-            localReport.AddDataSource("dsDepartment", departments);
             var result = localReport.Execute(RenderType.Pdf,extenstion,parameters,mimeType);
             return File(result.MainStream, "application/pdf");
 
