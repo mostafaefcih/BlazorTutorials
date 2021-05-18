@@ -59,7 +59,7 @@ namespace EmployeeManagement.Web
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider
                 .RegisterLicense
-                ("NDA0MTk3QDMxMzgyZTM0MmUzMGZDczZsajFJRGFuaW9CNkZtNU9WTWM3ZGtXTjlTKzNYMmx5YjFQdWswbWc9;NDA0MTk4QDMxMzgyZTM0MmUzMEtBM3ZlVDQvMCt3TksvYkk5Uyttbi9LdjZvSUhkT2RrVWd6MUVOV2dvL0E9;NDA0MTk5QDMxMzgyZTM0MmUzMEVlcGQxL1ZSbUpSbndSSjJERjkwUm1DK2V3SytkdHhqWC90dXpUckZjYUk9");
+                ("you should but ur key here ");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -11,17 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="wwwroot\Reports\EmployeeReport.rdlc" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Models\EmployeeReportViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\Reports\DepartmentReport.rdlc" />
     <EmbeddedResource Include="wwwroot\Reports\DepartmentsDetailsReporth.rdlc" />
-    <EmbeddedResource Include="wwwroot\Reports\EmployeeReport.rdlc" />
     <EmbeddedResource Include="wwwroot\Reports\EmployeesPerDepartmentReport.rdlc" />
   </ItemGroup>
 
